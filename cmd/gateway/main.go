@@ -18,6 +18,8 @@ import (
 	_ "net/http/pprof"
 
 	_ "github.com/go-kratos/gateway/discovery/consul"
+	_ "github.com/go-kratos/gateway/discovery/nacos"
+	_ "github.com/go-kratos/gateway/middleware/auth"
 	"github.com/go-kratos/gateway/middleware/circuitbreaker"
 	_ "github.com/go-kratos/gateway/middleware/cors"
 	_ "github.com/go-kratos/gateway/middleware/logging"
@@ -76,10 +78,10 @@ func main() {
 	circuitbreaker.Init(clientFactory)
 
 	ctx := context.Background()
-	var ctrlLoader *configLoader.CtrlConfigLoader
+	var ctrlLoader *configLoader.NacosCtrlConfigLoader
 	if ctrlService != "" {
 		LOG.Infof("setup control service to: %q", ctrlService)
-		ctrlLoader = configLoader.New(ctrlName, ctrlService, proxyConfig)
+		ctrlLoader = configLoader.NewNacosConfigLoader(ctrlName, ctrlService, proxyConfig)
 		if err := ctrlLoader.Load(ctx); err != nil {
 			LOG.Errorf("failed to do initial load from control service: %v, using local config instead", err)
 		}
