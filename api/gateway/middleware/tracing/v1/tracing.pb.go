@@ -7,9 +7,9 @@
 package v1
 
 import (
+	duration "github.com/golang/protobuf/ptypes/duration"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -32,7 +32,7 @@ type Tracing struct {
 	// sample ratio
 	SampleRatio *float32 `protobuf:"fixed32,2,opt,name=sample_ratio,json=sampleRatio,proto3,oneof" json:"sample_ratio,omitempty"`
 	// report timeout
-	Timeout *durationpb.Duration `protobuf:"bytes,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
+	Timeout *duration.Duration `protobuf:"bytes,4,opt,name=timeout,proto3" json:"timeout,omitempty"`
 }
 
 func (x *Tracing) Reset() {
@@ -81,7 +81,7 @@ func (x *Tracing) GetSampleRatio() float32 {
 	return 0
 }
 
-func (x *Tracing) GetTimeout() *durationpb.Duration {
+func (x *Tracing) GetTimeout() *duration.Duration {
 	if x != nil {
 		return x.Timeout
 	}
@@ -129,8 +129,8 @@ func file_gateway_middleware_tracing_v1_tracing_proto_rawDescGZIP() []byte {
 
 var file_gateway_middleware_tracing_v1_tracing_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_gateway_middleware_tracing_v1_tracing_proto_goTypes = []interface{}{
-	(*Tracing)(nil),             // 0: gateway.middleware.tracing.v1.Tracing
-	(*durationpb.Duration)(nil), // 1: google.protobuf.Duration
+	(*Tracing)(nil),           // 0: gateway.middleware.tracing.v1.Tracing
+	(*duration.Duration)(nil), // 1: google.protobuf.Duration
 }
 var file_gateway_middleware_tracing_v1_tracing_proto_depIdxs = []int32{
 	1, // 0: gateway.middleware.tracing.v1.Tracing.timeout:type_name -> google.protobuf.Duration
